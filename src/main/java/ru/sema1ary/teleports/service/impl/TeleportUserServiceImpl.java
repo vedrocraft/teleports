@@ -152,7 +152,7 @@ public class TeleportUserServiceImpl implements TeleportUserService {
         );
 
         if(configService.get("should-play-sound-on-request")) {
-            sender.playSound(sender.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1L, 0L);
+            target.playSound(target.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1L, 0L);
         }
     }
 
