@@ -1,0 +1,37 @@
+configuration:
+  sql-use: false
+  sql-host: 'localhost:3306'
+  sql-database: 'database'
+  sql-user: 'user'
+  sql-password: 'password'
+
+  reload-message: '<green>Плагин перезапущен.'
+
+  self-teleport-error: '<red>Вы не можете телепортироваться к самому себе.'
+
+  teleport-toggle-enabled-message: '<green>Вы успешно включили телепортации.'
+  teleport-toggle-disabled-message: '<gray>Вы успешно отключили телепортации.'
+
+  should-play-sound-on-teleport-accept: true
+  teleport-accept-message: '<green>Вы успешно приняли запрос на телепортацию.'
+  teleport-accept-request-player-message: '<green>Игрок принял ваш запрос на телепортацию.'
+
+  should-play-sound-on-teleport-deny: true
+  teleport-deny-message: '<green>Вы успешно отклонили запрос на телепортацию.'
+  teleport-deny-request-player-message: '<red>Игрок отклонил ваш запрос на телепортацию.'
+
+  no-requests-error-message: '<red>Запросов нет, нечего принять/отклонить.'
+
+  teleport-successful-message: '<green>Вы успешно телепортировались к игроку {target}.'
+  teleport-target-successful-message: '<green>Вы успешно телепортировали игрока {targetOne} к {targetTwo}.'
+
+  teleport-request-expired-message: '<red>Запрос на телепортацию истек.'
+
+  teleport-request-tp-disabled-message: '<red>У игрока отключены телепортации.'
+
+  should-play-sound-on-request: true
+  teleport-request-send-sender-message: '<green>Вы успешно отправили запрос на телепортацию игроку {target}.'
+  teleport-request-send-target-message: '<newline><gray>Вы получили запрос на телепортацию от: <light_blue>{sender}
+  <newline><gray>Чтобы принять: <green>/accept
+  <newline><gray>Чтобы отклонить: <red>/deny
+  <newline>Чтобы отключить запросы: /teleports toggle<newline>'

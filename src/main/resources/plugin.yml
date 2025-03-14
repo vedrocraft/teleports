@@ -1,0 +1,5 @@
+name: teleports
+version: '1.0'
+main: ru.sema1ary.teleports.Teleports
+api-version: '1.20'
+authors: [ sema1ary ]
