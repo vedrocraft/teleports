@@ -20,7 +20,7 @@ public class QuitListener implements Listener {
 
         if(user.getRequestPlayer() != null) {
             PlayerUtil.sendMessage(user.getRequestPlayer(),
-                    configService.get("teleport-request-expired-message"));
+                    (String) configService.get("teleport-request-expired-message"));
 
             user.setRequestPlayer(null);
             userService.save(user);

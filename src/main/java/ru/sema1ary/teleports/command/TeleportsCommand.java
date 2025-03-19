@@ -23,7 +23,7 @@ public class TeleportsCommand {
     @Permission("teleports.reload")
     void reload(@Context CommandSender sender) {
         configService.reload();
-        PlayerUtil.sendMessage(sender, configService.get("reload-message"));
+        PlayerUtil.sendMessage(sender, (String) configService.get("reload-message"));
     }
 
     @Async

@@ -30,13 +30,13 @@ public class TeleportCommand {
     @Permission("teleports.teleport")
     void execute(@Context Player sender, @Arg("игрок") Player target) {
         if(sender.equals(target)) {
-            PlayerUtil.sendMessage(sender, configService.get("self-teleport-error"));
+            PlayerUtil.sendMessage(sender, (String) configService.get("self-teleport-error"));
             return;
         }
 
         if(!userService.getUser(target.getName()).isTeleportsEnabled()
                 && !sender.hasPermission("teleport.bypass")) {
-            PlayerUtil.sendMessage(sender, configService.get("teleport-request-tp-disabled-message"));
+            PlayerUtil.sendMessage(sender, (String) configService.get("teleport-request-tp-disabled-message"));
             return;
         }
 

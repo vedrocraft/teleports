@@ -21,7 +21,7 @@ public class CallCommand {
     @Execute
     void execute(@Context Player sender, @Arg("игрок") Player target) {
         if(sender.equals(target)) {
-            PlayerUtil.sendMessage(sender, configService.get("self-teleport-error"));
+            PlayerUtil.sendMessage(sender, (String) configService.get("self-teleport-error"));
             return;
         }
 
