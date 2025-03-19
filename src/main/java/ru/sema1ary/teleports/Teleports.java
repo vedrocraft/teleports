@@ -15,6 +15,7 @@ import ru.sema1ary.teleports.service.impl.TeleportUserServiceImpl;
 import ru.sema1ary.vedrocraftapi.BaseCommons;
 import ru.sema1ary.vedrocraftapi.command.LiteCommandBuilder;
 import ru.sema1ary.vedrocraftapi.ormlite.ConnectionSourceUtil;
+import ru.sema1ary.vedrocraftapi.ormlite.DatabaseUtil;
 import ru.sema1ary.vedrocraftapi.service.ConfigService;
 import ru.sema1ary.vedrocraftapi.service.ServiceManager;
 import ru.sema1ary.vedrocraftapi.service.impl.ConfigServiceImpl;
@@ -26,45 +27,46 @@ import java.nio.file.Paths;
 public final class Teleports extends JavaPlugin implements BaseCommons {
     @Override
     public void onEnable() {
-        saveDefaultConfig();
-
         ServiceManager.registerService(ConfigService.class, new ConfigServiceImpl(this));
 
-        initConnectionSource();
+        DatabaseUtil.initConnectionSource(this, TeleportUser.class);
 
         ServiceManager.registerService(TeleportUserService.class, new TeleportUserServiceImpl(
                 getDao(TeleportUser.class),
-                ServiceManager.getService(ConfigService.class)
+                getService(ConfigService.class)
         ));
 
         getServer().getPluginManager().registerEvents(new PreJoinListener(
-                ServiceManager.getService(TeleportUserService.class)), this);
-        getServer().getPluginManager().registerEvents(new QuitListener(ServiceManager.getService(ConfigService.class),
-                ServiceManager.getService(TeleportUserService.class)), this);
+                getService(TeleportUserService.class)
+        ), this);
+        getServer().getPluginManager().registerEvents(new QuitListener(
+                getService(ConfigService.class),
+                getService(TeleportUserService.class)
+        ), this);
 
         LiteCommandBuilder.builder()
                 .commands(
                         new TeleportCommand(
-                                ServiceManager.getService(ConfigService.class),
-                                ServiceManager.getService(TeleportUserService.class)
+                                getService(ConfigService.class),
+                                getService(TeleportUserService.class)
                         ),
 
                         new TeleportsCommand(
-                                ServiceManager.getService(ConfigService.class),
-                                ServiceManager.getService(TeleportUserService.class)
+                                getService(ConfigService.class),
+                                getService(TeleportUserService.class)
                         ),
 
                         new CallCommand(
-                                ServiceManager.getService(ConfigService.class),
-                                ServiceManager.getService(TeleportUserService.class)
+                                getService(ConfigService.class),
+                                getService(TeleportUserService.class)
                         ),
 
                         new AcceptCommand(
-                                ServiceManager.getService(TeleportUserService.class)
+                                getService(TeleportUserService.class)
                         ),
 
                         new DenyCommand(
-                                ServiceManager.getService(TeleportUserService.class)
+                                getService(TeleportUserService.class)
                         )
                 )
                 .build();
@@ -73,16 +75,5 @@ public final class Teleports extends JavaPlugin implements BaseCommons {
     @Override
     public void onDisable() {
         ConnectionSourceUtil.closeConnection(true);
-    }
-
-    @SneakyThrows
-    private void initConnectionSource() {
-        Path databaseFilePath = Paths.get("plugins/teleports/database.sqlite");
-        if(!Files.exists(databaseFilePath) && !databaseFilePath.toFile().createNewFile()) {
-            return;
-        }
-
-        ConnectionSourceUtil.connectNoSQLDatabase(databaseFilePath.toString(),
-                TeleportUser.class);
     }
 }

@@ -86,13 +86,13 @@ public class TeleportUserServiceImpl implements TeleportUserService {
         TeleportUser user = getUser(sender.getName());
 
         if(user.getRequestPlayer() == null) {
-            PlayerUtil.sendMessage(sender, configService.get("no-requests-error-message"));
+            PlayerUtil.sendMessage(sender, (String) configService.get("no-requests-error-message"));
             return;
         }
 
         Player player = Bukkit.getPlayer(user.getRequestPlayer());
         if(player == null || !player.isOnline()) {
-            PlayerUtil.sendMessage(sender, configService.get("teleport-request-expired-message"));
+            PlayerUtil.sendMessage(sender, (String) configService.get("teleport-request-expired-message"));
             return;
         }
 
@@ -100,8 +100,8 @@ public class TeleportUserServiceImpl implements TeleportUserService {
         save(user);
 
         player.teleportAsync(sender.getLocation());
-        PlayerUtil.sendMessage(sender, configService.get("teleport-accept-message"));
-        PlayerUtil.sendMessage(player, configService.get("teleport-accept-request-player-message"));
+        PlayerUtil.sendMessage(sender, (String) configService.get("teleport-accept-message"));
+        PlayerUtil.sendMessage(player, (String) configService.get("teleport-accept-request-player-message"));
 
         if(configService.get("should-play-sound-on-teleport-accept")) {
             player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1L, 0L);
@@ -113,13 +113,13 @@ public class TeleportUserServiceImpl implements TeleportUserService {
         TeleportUser user = getUser(sender.getName());
 
         if(user.getRequestPlayer() == null) {
-            PlayerUtil.sendMessage(sender, configService.get("no-requests-error-message"));
+            PlayerUtil.sendMessage(sender, (String) configService.get("no-requests-error-message"));
             return;
         }
 
         Player player = Bukkit.getPlayer(user.getRequestPlayer());
-        PlayerUtil.sendMessage(sender, configService.get("teleport-deny-message"));
-        PlayerUtil.sendMessage(player, configService.get("teleport-deny-request-player-message"));
+        PlayerUtil.sendMessage(sender, (String) configService.get("teleport-deny-message"));
+        PlayerUtil.sendMessage(player, (String) configService.get("teleport-deny-request-player-message"));
 
         if(player != null && (boolean) configService.get("should-play-sound-on-teleport-deny")) {
             player.playSound(player.getLocation(), Sound.ENTITY_CAT_DEATH, 1L, 0L);
@@ -134,7 +134,7 @@ public class TeleportUserServiceImpl implements TeleportUserService {
         TeleportUser user = getUser(target.getName());
 
         if(!user.isTeleportsEnabled() && !sender.hasPermission("teleport.bypass")) {
-            PlayerUtil.sendMessage(sender, configService.get("teleport-request-tp-disabled-message"));
+            PlayerUtil.sendMessage(sender, (String) configService.get("teleport-request-tp-disabled-message"));
             return;
         }
 
@@ -162,9 +162,9 @@ public class TeleportUserServiceImpl implements TeleportUserService {
 
         if(user.isTeleportsEnabled()) {
             user.setTeleportsEnabled(false);
-            PlayerUtil.sendMessage(sender, configService.get("teleport-toggle-disabled-message"));
+            PlayerUtil.sendMessage(sender, (String) configService.get("teleport-toggle-disabled-message"));
         } else {
-            PlayerUtil.sendMessage(sender, configService.get("teleport-toggle-enabled-message"));
+            PlayerUtil.sendMessage(sender,(String) configService.get("teleport-toggle-enabled-message"));
             user.setTeleportsEnabled(true);
         }
 
